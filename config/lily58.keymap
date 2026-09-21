@@ -9,6 +9,33 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        combo_tab {
+            bindings = <&kp TAB>;
+            key-positions = <12 13>;
+        };
+    };
+
+    macros {
+        macro_next_tab: macro_next_tab {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(TAB)>, <&macro_press>;
+
+            label = "MACRO_NEXT_TAB";
+        };
+
+        macro_prev_tab: macro_prev_tab {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(LS(TAB))>, <&macro_press>;
+
+            label = "MACRO_PREV_TAB";
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -62,11 +89,11 @@
 
             display-name = "Raise";
             bindings = <
-&bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans         &trans     &trans        &trans     &trans    &bootloader
-&kp LC(TAB)  &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                          &kp PG_UP      &kp HOME   &kp UP_ARROW  &kp END    &kp N0    &trans
-&kp F1       &kp F2        &kp F3        &kp F4        &kp F5        &kp F6                          &kp PAGE_DOWN  &kp LEFT   &kp DOWN      &kp RIGHT  &trans    &trans
-&kp F7       &kp F8        &kp F9        &kp F10       &kp F11       &kp F12       &trans    &trans  &kp KP_PLUS    &kp MINUS  &kp EQUAL     &kp LBKT   &kp RBKT  &kp BSLH
-                                         &trans        &trans        &trans        &trans    &trans  &trans         &trans     &trans
+&bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans         &trans           &trans           &trans     &trans    &bootloader
+&kp LC(TAB)  &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                          &kp PG_UP      &kp HOME         &kp UP_ARROW     &kp END    &kp N0    &trans
+&kp F1       &kp F2        &kp F3        &kp F4        &kp F5        &kp F6                          &kp PAGE_DOWN  &kp LEFT         &kp DOWN         &kp RIGHT  &trans    &trans
+&kp F7       &kp F8        &kp F9        &kp F10       &kp F11       &kp F12       &trans    &trans  &kp KP_PLUS    &macro_prev_tab  &macro_next_tab  &kp LBKT   &kp RBKT  &kp BSLH
+                                         &trans        &trans        &trans        &trans    &trans  &trans         &trans           &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
